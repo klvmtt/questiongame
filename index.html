@@ -7,307 +7,289 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0f172a, #111827, #1e293b);
-      color: #fff;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 20px;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color: #fff;
+      padding: 18px;
     }
 
-    .wrap {
+    .game-card {
       width: 100%;
-      max-width: 760px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-      backdrop-filter: blur(8px);
+      max-width: 430px;
+      background: #1e293b;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
-    h1 {
+    .title {
       text-align: center;
-      font-size: 34px;
+      font-size: 28px;
+      font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .desc {
+    .subtitle {
       text-align: center;
       color: #cbd5e1;
+      font-size: 14px;
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
 
-    .top {
+    .info-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 22px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
     }
 
-    .box {
-      background: rgba(255,255,255,0.07);
-      border-radius: 16px;
-      padding: 16px;
+    .info-box {
+      background: #334155;
+      border-radius: 14px;
+      padding: 14px 12px;
       text-align: center;
     }
 
     .label {
-      display: block;
-      color: #cbd5e1;
       font-size: 13px;
-      margin-bottom: 8px;
+      color: #cbd5e1;
+      margin-bottom: 6px;
     }
 
     .value {
-      font-size: 28px;
-      font-weight: bold;
+      font-size: 22px;
+      font-weight: 700;
     }
 
-    .question-card {
-      background: rgba(255,255,255,0.07);
-      border-radius: 18px;
-      padding: 22px;
+    .status-box {
+      background: #334155;
+      border-radius: 14px;
+      padding: 14px 12px;
+      text-align: center;
+      margin-bottom: 14px;
     }
 
-    .question {
-      font-size: 24px;
-      line-height: 1.5;
-      margin-bottom: 18px;
-      min-height: 96px;
+    .status-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .question-box {
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 14px;
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px 16px;
+      font-size: 18px;
+      line-height: 1.6;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
     .answers {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 10px;
+    }
+
+    .answer-btn,
+    .main-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s ease;
     }
 
     .answer-btn {
-      border: none;
-      border-radius: 14px;
-      padding: 16px;
-      min-height: 74px;
-      background: #1e293b;
-      color: #fff;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.2s ease;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: #e2e8f0;
+      color: #0f172a;
     }
 
     .answer-btn:hover {
-      transform: translateY(-2px);
-      background: #334155;
+      transform: translateY(-1px);
+      background: #ffffff;
     }
 
-    .answer-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
+    .answer-btn:active,
+    .main-btn:active {
+      transform: scale(0.99);
     }
 
-    .progress {
-      width: 100%;
-      height: 12px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.08);
-      margin-top: 18px;
+    .main-btn {
+      margin-top: 12px;
+      background: #22c55e;
+      color: #fff;
     }
 
-    .bar {
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, #22c55e, #facc15, #ef4444);
-      transition: width 1s linear;
+    .main-btn:hover {
+      background: #16a34a;
     }
 
     .footer-note {
       text-align: center;
+      margin-top: 16px;
       color: #94a3b8;
-      margin-top: 18px;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.6;
     }
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.68);
+    .hidden {
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 9999;
     }
 
-    .modal {
-      width: 100%;
-      max-width: 580px;
-      background: #fff;
-      color: #111827;
-      border-radius: 18px;
-      padding: 24px;
-      text-align: center;
-      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
-    }
+    .good { color: #22c55e; }
+    .bad { color: #ef4444; }
+    .warn { color: #facc15; }
 
-    .modal h2 {
-      font-size: 28px;
-      margin-bottom: 14px;
-    }
-
-    .modal p {
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-
-    .modal a {
-      color: #2563eb;
-      font-weight: bold;
-      word-break: break-word;
-      text-decoration: none;
-    }
-
-    .modal a:hover {
-      text-decoration: underline;
-    }
-
-    .modal button {
-      border: none;
-      background: #111827;
-      color: #fff;
-      padding: 12px 22px;
-      font-size: 16px;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-
-    .modal button:hover {
-      background: #000;
-    }
-
-    @media (max-width: 680px) {
-      .top {
-        grid-template-columns: 1fr;
-      }
-
-      .answers {
-        grid-template-columns: 1fr;
-      }
-
-      .question {
-        font-size: 20px;
-        min-height: auto;
-      }
+    @media (max-width: 480px) {
+      .title { font-size: 25px; }
+      .question-box { font-size: 17px; min-height: 120px; }
+      .value { font-size: 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Tantangan 5 Round</h1>
-    <div class="desc">
+  <div class="game-card">
+    <div class="title">Tantangan 5 Round</div>
+
+    <div class="subtitle">
       Jawab 5 pertanyaan umum dengan cepat dan tepat.<br>
       Salah, kehabisan waktu, atau refresh halaman = kembali ke Round 1.
     </div>
 
-    <div class="top">
-      <div class="box">
-        <span class="label">Round</span>
-        <span class="value" id="roundText">1 / 5</span>
+    <div class="info-grid">
+      <div class="info-box">
+        <div class="label">Round</div>
+        <div class="value" id="roundText">1 / 5</div>
       </div>
-      <div class="box">
-        <span class="label">Waktu</span>
-        <span class="value" id="timerText">10</span>
-      </div>
-      <div class="box">
-        <span class="label">Status</span>
-        <span class="value" id="statusText">Main</span>
+      <div class="info-box">
+        <div class="label">Waktu</div>
+        <div class="value" id="timerText">10</div>
       </div>
     </div>
 
-    <div class="question-card">
-      <div class="question" id="questionText">Memuat pertanyaan...</div>
-      <div class="answers" id="answersBox"></div>
-      <div class="progress">
-        <div class="bar" id="timeBar"></div>
-      </div>
+    <div class="status-box">
+      <div class="label">Status</div>
+      <div class="status-value" id="statusText">Main</div>
     </div>
+
+    <div class="question-box" id="questionText">
+      Memuat pertanyaan...
+    </div>
+
+    <div class="answers" id="answersBox"></div>
+
+    <button class="main-btn" id="startBtn">Mulai</button>
 
     <div class="footer-note">
       Menang jika berhasil menjawab semua 5 round sebelum waktu habis.
     </div>
   </div>
 
-  <div class="overlay" id="overlay">
-    <div class="modal">
-      <h2 id="modalTitle">Info</h2>
-      <p id="modalMessage"></p>
-      <button id="modalButton">OK</button>
-    </div>
-  </div>
-
   <script>
-    const TOTAL_ROUNDS = 5;
-    const TIME_LIMIT = 10;
-
-    const ADMIN_LINK = "https://t.me/Tonott12";
-    const CREATOR_LINK = "https://www.instagram.com/yuprato";
-
-    // Ubah pesan ini sendiri kalau mau
-    const WIN_MESSAGE = `
-      SELAMAT!<br><br>
-      Kamu berhasil menyelesaikan tantangan ini.<br>
-      Silakan hubungi admin untuk verifikasi klaim hadiah:<br><br>
-      <a href="${ADMIN_LINK}" target="_blank">${ADMIN_LINK}</a><br><br>
-      Simpan screenshot popup ini sebagai bukti bahwa kamu sudah berhasil menyelesaikan tantangan.
-    `;
-
-    const questionBank = [
+    const questionPool = [
       {
-        question: "Negara yang dikenal memiliki garis pantai terpanjang di dunia adalah...",
-        options: ["Rusia", "Amerika Serikat", "Kanada", "Australia"],
-        answer: "Kanada"
+        question: "Negara manakah yang pertama kali mengirim manusia ke luar angkasa?",
+        options: ["Amerika Serikat", "Uni Soviet", "Jerman", "Prancis"],
+        answer: "Uni Soviet"
       },
       {
-        question: "Ibukota Turki adalah...",
-        options: ["Istanbul", "Ankara", "Izmir", "Bursa"],
-        answer: "Ankara"
+        question: "Siapa filsuf yang menulis karya 'Critique of Pure Reason'?",
+        options: ["Immanuel Kant", "Friedrich Nietzsche", "Aristoteles", "Descartes"],
+        answer: "Immanuel Kant"
       },
       {
-        question: "Planet yang memiliki rotasi paling cepat di tata surya adalah...",
-        options: ["Mars", "Saturnus", "Jupiter", "Neptunus"],
-        answer: "Jupiter"
+        question: "Apa ibu kota administratif Afrika Selatan?",
+        options: ["Cape Town", "Johannesburg", "Pretoria", "Durban"],
+        answer: "Pretoria"
+      },
+      {
+        question: "Unsur dengan nomor atom 74 adalah...",
+        options: ["Titanium", "Tungsten", "Tantalum", "Tellurium"],
+        answer: "Tungsten"
+      },
+      {
+        question: "Siapa pelukis karya 'The Persistence of Memory'?",
+        options: ["Pablo Picasso", "Claude Monet", "Salvador Dalí", "Van Gogh"],
+        answer: "Salvador Dalí"
+      },
+      {
+        question: "Dalam matematika, nilai π paling mendekati...",
+        options: ["3,124", "3,14159", "3,4519", "2,71828"],
+        answer: "3,14159"
+      },
+      {
+        question: "Lapisan atmosfer tempat sebagian besar meteor terbakar adalah...",
+        options: ["Troposfer", "Stratosfer", "Mesosfer", "Eksosfer"],
+        answer: "Mesosfer"
+      },
+      {
+        question: "Novel '1984' ditulis oleh...",
+        options: ["George Orwell", "Aldous Huxley", "H.G. Wells", "Jules Verne"],
+        answer: "George Orwell"
       },
       {
         question: "Bahasa resmi Brasil adalah...",
-        options: ["Spanyol", "Portugis", "Prancis", "Italia"],
+        options: ["Spanyol", "Portugis", "Inggris", "Prancis"],
         answer: "Portugis"
       },
       {
-        question: "Samudra terbesar di dunia adalah...",
-        options: ["Atlantik", "Hindia", "Pasifik", "Arktik"],
-        answer: "Pasifik"
+        question: "Siapa ilmuwan yang merumuskan tiga hukum gerak klasik?",
+        options: ["Galileo", "Einstein", "Isaac Newton", "Kepler"],
+        answer: "Isaac Newton"
+      },
+      {
+        question: "Benua dengan jumlah negara terbanyak adalah...",
+        options: ["Asia", "Eropa", "Afrika", "Amerika Selatan"],
+        answer: "Afrika"
+      },
+      {
+        question: "Mata uang resmi Korea Selatan adalah...",
+        options: ["Yen", "Won", "Ringgit", "Baht"],
+        answer: "Won"
       },
       {
         question: "Simbol kimia untuk perak adalah...",
-        options: ["Ag", "Au", "Pb", "Fe"],
+        options: ["Ag", "Au", "Pb", "Pt"],
         answer: "Ag"
       },
       {
-        question: "Alat untuk mengukur tekanan udara adalah...",
-        options: ["Higrometer", "Barometer", "Termometer", "Altimeter"],
-        answer: "Barometer"
+        question: "Karya 'Divine Comedy' ditulis oleh...",
+        options: ["Dante Alighieri", "Homer", "Virgil", "Sophocles"],
+        answer: "Dante Alighieri"
+      },
+      {
+        question: "Planet dengan rotasi tercepat di tata surya adalah...",
+        options: ["Mars", "Bumi", "Jupiter", "Neptunus"],
+        answer: "Jupiter"
+      },
+      {
+        question: "Perang Dunia I dimulai pada tahun...",
+        options: ["1912", "1914", "1916", "1918"],
+        answer: "1914"
+      },
+      {
+        question: "Siapa penemu vaksin cacar pertama yang terkenal secara luas?",
+        options: ["Louis Pasteur", "Alexander Fleming", "Edward Jenner", "Robert Koch"],
+        answer: "Edward Jenner"
       },
       {
         question: "Gunung tertinggi di Afrika adalah...",
@@ -315,9 +297,159 @@
         answer: "Kilimanjaro"
       },
       {
-        question: "Benua dengan jumlah negara terbanyak adalah...",
-        options: ["Asia", "Afrika", "Eropa", "Amerika Selatan"],
-        answer: "Afrika"
+        question: "Organ tubuh manusia yang menghasilkan insulin adalah...",
+        options: ["Hati", "Ginjal", "Pankreas", "Limpa"],
+        answer: "Pankreas"
+      },
+      {
+        question: "Istilah 'Renaissance' pertama kali berkembang di kawasan...",
+        options: ["Inggris", "Italia", "Jerman", "Spanyol"],
+        answer: "Italia"
+      },
+      {
+        question: "Bilangan prima genap satu-satunya adalah...",
+        options: ["0", "1", "2", "4"],
+        answer: "2"
+      },
+      {
+        question: "Laut yang paling asin di dunia secara umum dikenal sebagai...",
+        options: ["Laut Merah", "Laut Hitam", "Laut Mati", "Laut Kaspia"],
+        answer: "Laut Mati"
+      },
+      {
+        question: "Siapa tokoh utama dalam epos 'Odyssey'?",
+        options: ["Achilles", "Odysseus", "Hector", "Perseus"],
+        answer: "Odysseus"
+      },
+      {
+        question: "Negara manakah yang memiliki jumlah pulau terbanyak menurut data umum yang sering dirujuk?",
+        options: ["Indonesia", "Filipina", "Swedia", "Jepang"],
+        answer: "Swedia"
+      },
+      {
+        question: "Apa nama ibukota Mongolia?",
+        options: ["Astana", "Tashkent", "Ulaanbaatar", "Bishkek"],
+        answer: "Ulaanbaatar"
+      },
+      {
+        question: "Siapa yang mengembangkan teori relativitas umum?",
+        options: ["Nikola Tesla", "Albert Einstein", "Niels Bohr", "James Clerk Maxwell"],
+        answer: "Albert Einstein"
+      },
+      {
+        question: "Sungai terpanjang di dunia yang paling sering diajarkan secara klasik adalah...",
+        options: ["Amazon", "Nil", "Yangtze", "Mississippi"],
+        answer: "Nil"
+      },
+      {
+        question: "Apa nama proses perubahan uap air menjadi cair?",
+        options: ["Evaporasi", "Sublimasi", "Kondensasi", "Presipitasi"],
+        answer: "Kondensasi"
+      },
+      {
+        question: "Siapa pengarang 'One Hundred Years of Solitude'?",
+        options: ["Mario Vargas Llosa", "Gabriel García Márquez", "Pablo Neruda", "Jorge Luis Borges"],
+        answer: "Gabriel García Márquez"
+      },
+      {
+        question: "Dalam musik, berapa jumlah simfoni yang selesai ditulis Beethoven?",
+        options: ["7", "8", "9", "10"],
+        answer: "9"
+      },
+      {
+        question: "Apa nama gurun panas terbesar di dunia?",
+        options: ["Gobi", "Kalahari", "Arab", "Sahara"],
+        answer: "Sahara"
+      },
+      {
+        question: "Badan sel tempat DNA manusia paling banyak tersimpan adalah...",
+        options: ["Membran sel", "Nukleus", "Mitokondria", "Sitoplasma"],
+        answer: "Nukleus"
+      },
+      {
+        question: "Negara yang dikenal sebagai tempat lahir Olimpiade kuno adalah...",
+        options: ["Italia", "Yunani", "Mesir", "Turki"],
+        answer: "Yunani"
+      },
+      {
+        question: "Apa nama mata uang resmi Swiss?",
+        options: ["Euro", "Krone", "Franc Swiss", "Mark"],
+        answer: "Franc Swiss"
+      },
+      {
+        question: "Siapa penulis 'The Republic'?",
+        options: ["Plato", "Socrates", "Aristoteles", "Heraclitus"],
+        answer: "Plato"
+      },
+      {
+        question: "Dalam tabel periodik, simbol Fe adalah...",
+        options: ["Fluorin", "Fermium", "Besi", "Emas"],
+        answer: "Besi"
+      },
+      {
+        question: "Piramida Giza berada di negara...",
+        options: ["Sudan", "Mesir", "Yordania", "Arab Saudi"],
+        answer: "Mesir"
+      },
+      {
+        question: "Organisasi PBB yang fokus pada pendidikan, ilmu pengetahuan, dan kebudayaan adalah...",
+        options: ["UNICEF", "WHO", "UNESCO", "UNHCR"],
+        answer: "UNESCO"
+      },
+      {
+        question: "Siapa komposer opera 'The Magic Flute'?",
+        options: ["Mozart", "Bach", "Chopin", "Vivaldi"],
+        answer: "Mozart"
+      },
+      {
+        question: "Apa nama galaksi tempat tata surya kita berada?",
+        options: ["Andromeda", "Bima Sakti", "Sombrero", "Triangulum"],
+        answer: "Bima Sakti"
+      },
+      {
+        question: "Negara dengan populasi terbesar di dunia saat ini adalah...",
+        options: ["China", "India", "Amerika Serikat", "Indonesia"],
+        answer: "India"
+      },
+      {
+        question: "Bagian mata yang mengatur banyaknya cahaya masuk adalah...",
+        options: ["Retina", "Kornea", "Iris", "Lensa"],
+        answer: "Iris"
+      },
+      {
+        question: "Siapa yang menulis drama 'Hamlet'?",
+        options: ["Christopher Marlowe", "William Shakespeare", "Ben Jonson", "Charles Dickens"],
+        answer: "William Shakespeare"
+      },
+      {
+        question: "Apa nama lautan terbesar di dunia?",
+        options: ["Atlantik", "Hindia", "Pasifik", "Arktik"],
+        answer: "Pasifik"
+      },
+      {
+        question: "Satuan arus listrik adalah...",
+        options: ["Volt", "Ampere", "Watt", "Ohm"],
+        answer: "Ampere"
+      },
+      {
+        question: "Negara manakah yang memiliki kota Istanbul?",
+        options: ["Yunani", "Turki", "Iran", "Mesir"],
+        answer: "Turki"
+      },
+      {
+        question: "Siapa pencetus heliosentris yang terkenal sebelum dikembangkan lebih jauh oleh ilmuwan lain?",
+        options: ["Copernicus", "Galileo", "Tycho Brahe", "Ptolemy"],
+        answer: "Copernicus"
+      },
+      {
+        question: "Apa nama proses tumbuhan membuat makanan dengan bantuan cahaya?",
+        options: ["Respirasi", "Fotosintesis", "Transpirasi", "Fermentasi"],
+        answer: "Fotosintesis"
+      },
+      {
+        question: "Logam cair pada suhu ruang yang paling dikenal adalah...",
+        options: ["Merkuri", "Besi", "Timbal", "Aluminium"],
+        answer: "Merkuri"
       },
       {
         question: "Ibukota Kanada adalah...",
@@ -325,106 +457,69 @@
         answer: "Ottawa"
       },
       {
-        question: "Venus terkenal karena satu hal unik, yaitu...",
-        options: ["Punya cincin", "Hari lebih lama dari tahunnya", "Paling besar", "Paling dingin"],
-        answer: "Hari lebih lama dari tahunnya"
+        question: "Apa nama planet terdekat dengan Matahari?",
+        options: ["Venus", "Mars", "Merkurius", "Bumi"],
+        answer: "Merkurius"
       },
       {
-        question: "Danau terbesar di dunia berdasarkan luas permukaan adalah...",
-        options: ["Danau Superior", "Danau Victoria", "Laut Kaspia", "Danau Baikal"],
-        answer: "Laut Kaspia"
+        question: "Siapa yang menulis 'The Art of War'?",
+        options: ["Confucius", "Laozi", "Sun Tzu", "Mencius"],
+        answer: "Sun Tzu"
       },
       {
-        question: "Tulisan angka Romawi dari 49 adalah...",
-        options: ["IL", "XLIX", "VLIV", "XXXXIX"],
-        answer: "XLIX"
+        question: "Dalam geometri, jumlah sudut dalam segitiga adalah...",
+        options: ["90°", "180°", "270°", "360°"],
+        answer: "180°"
       },
       {
-        question: "Negara yang dijuluki Negeri Gajah Putih adalah...",
-        options: ["India", "Thailand", "Laos", "Myanmar"],
-        answer: "Thailand"
+        question: "Apa nama samudra yang berada di antara Afrika, Asia, dan Australia?",
+        options: ["Pasifik", "Atlantik", "Hindia", "Arktik"],
+        answer: "Hindia"
       },
       {
-        question: "Ibukota Australia adalah...",
-        options: ["Sydney", "Canberra", "Melbourne", "Perth"],
-        answer: "Canberra"
+        question: "Siapa presiden pertama Amerika Serikat?",
+        options: ["Thomas Jefferson", "Abraham Lincoln", "George Washington", "John Adams"],
+        answer: "George Washington"
       },
       {
-        question: "Unsur dengan simbol K adalah...",
-        options: ["Krypton", "Kalium", "Karbon", "Kalsium"],
-        answer: "Kalium"
+        question: "Apa ibu kota Argentina?",
+        options: ["Lima", "Santiago", "Bogotá", "Buenos Aires"],
+        answer: "Buenos Aires"
       },
       {
-        question: "Hewan mamalia yang bisa terbang alami adalah...",
-        options: ["Tupai terbang", "Kelelawar", "Pinguin", "Elang"],
-        answer: "Kelelawar"
+        question: "Gas terbanyak di atmosfer Bumi adalah...",
+        options: ["Oksigen", "Karbon dioksida", "Nitrogen", "Hidrogen"],
+        answer: "Nitrogen"
       },
       {
-        question: "Lapisan atmosfer tempat sebagian besar cuaca terjadi adalah...",
-        options: ["Stratosfer", "Mesosfer", "Troposfer", "Termosfer"],
-        answer: "Troposfer"
+        question: "Siapa matematikawan yang dikenal dengan teorema pada segitiga siku-siku?",
+        options: ["Euclid", "Pythagoras", "Archimedes", "Euler"],
+        answer: "Pythagoras"
       },
       {
-        question: "Bahan utama pembuatan kaca pada umumnya adalah...",
-        options: ["Pasir silika", "Besi", "Tanah liat", "Granit"],
-        answer: "Pasir silika"
-      },
-      {
-        question: "Ibukota Swiss adalah...",
-        options: ["Zurich", "Geneva", "Bern", "Basel"],
-        answer: "Bern"
-      },
-      {
-        question: "Negara dengan jumlah pulau terbanyak yang umum diakui adalah...",
-        options: ["Indonesia", "Filipina", "Swedia", "Jepang"],
-        answer: "Swedia"
-      },
-      {
-        question: "Bintang memancarkan cahaya sendiri karena...",
-        options: ["Memantulkan cahaya", "Pembakaran nuklir", "Es panas", "Gesekan angin"],
-        answer: "Pembakaran nuklir"
-      },
-      {
-        question: "Mata uang Thailand adalah...",
-        options: ["Dong", "Kyat", "Baht", "Riel"],
-        answer: "Baht"
-      },
-      {
-        question: "Sungai Nil mengalir ke laut...",
-        options: ["Laut Merah", "Laut Tengah", "Laut Hitam", "Samudra Hindia"],
-        answer: "Laut Tengah"
-      },
-      {
-        question: "Negara asal Menara Pisa adalah...",
-        options: ["Prancis", "Italia", "Portugal", "Spanyol"],
-        answer: "Italia"
-      },
-      {
-        question: "Simbol kimia emas adalah...",
-        options: ["Ag", "Au", "Gd", "Go"],
-        answer: "Au"
+        question: "Benua terkecil berdasarkan luas daratan adalah...",
+        options: ["Eropa", "Australia", "Antarktika", "Amerika Selatan"],
+        answer: "Australia"
       }
     ];
 
-    let currentRound = 1;
-    let currentTime = TIME_LIMIT;
+    const TOTAL_ROUNDS = 5;
+    const TIME_PER_ROUND = 10;
+
+    let gameQuestions = [];
+    let currentRound = 0;
+    let timeLeft = TIME_PER_ROUND;
     let timer = null;
-    let questionsForGame = [];
-    let locked = false;
+    let lockAnswer = false;
 
     const roundText = document.getElementById("roundText");
     const timerText = document.getElementById("timerText");
     const statusText = document.getElementById("statusText");
     const questionText = document.getElementById("questionText");
     const answersBox = document.getElementById("answersBox");
-    const timeBar = document.getElementById("timeBar");
+    const startBtn = document.getElementById("startBtn");
 
-    const overlay = document.getElementById("overlay");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalMessage = document.getElementById("modalMessage");
-    const modalButton = document.getElementById("modalButton");
-
-    function shuffle(arr) {
+    function shuffleArray(arr) {
       const copy = [...arr];
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -433,60 +528,70 @@
       return copy;
     }
 
-    function prepareQuestions() {
-      questionsForGame = shuffle(questionBank)
-        .slice(0, TOTAL_ROUNDS)
-        .map(item => ({
-          ...item,
-          options: shuffle(item.options)
-        }));
+    function pickRandomQuestions() {
+      return shuffleArray(questionPool).slice(0, TOTAL_ROUNDS).map(q => ({
+        question: q.question,
+        options: shuffleArray(q.options),
+        answer: q.answer
+      }));
     }
 
     function updateHeader() {
-      roundText.textContent = `${currentRound} / ${TOTAL_ROUNDS}`;
-      timerText.textContent = currentTime;
-      timeBar.style.width = `${(currentTime / TIME_LIMIT) * 100}%`;
+      roundText.textContent = `${Math.min(currentRound + 1, TOTAL_ROUNDS)} / ${TOTAL_ROUNDS}`;
+      timerText.textContent = timeLeft;
     }
 
-    function stopTimer() {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
+    function setStatus(text, cls = "") {
+      statusText.className = "status-value";
+      if (cls) statusText.classList.add(cls);
+      statusText.textContent = text;
     }
 
-    function disableAnswers() {
-      document.querySelectorAll(".answer-btn").forEach(btn => {
-        btn.disabled = true;
-      });
+    function resetToIdle(message = "Memuat pertanyaan...") {
+      clearInterval(timer);
+      currentRound = 0;
+      timeLeft = TIME_PER_ROUND;
+      lockAnswer = false;
+      updateHeader();
+      setStatus("Main");
+      questionText.textContent = message;
+      answersBox.innerHTML = "";
+      startBtn.classList.remove("hidden");
+      startBtn.textContent = "Mulai";
     }
 
-    function showModal(title, html, onOk) {
-      modalTitle.innerHTML = title;
-      modalMessage.innerHTML = html;
-      overlay.style.display = "flex";
-      modalButton.onclick = () => {
-        overlay.style.display = "none";
-        if (typeof onOk === "function") onOk();
-      };
-    }
-
-    function resetGame() {
-      stopTimer();
-      currentRound = 1;
-      currentTime = TIME_LIMIT;
-      statusText.textContent = "Main";
-      prepareQuestions();
+    function startGame() {
+      clearInterval(timer);
+      gameQuestions = pickRandomQuestions();
+      currentRound = 0;
+      timeLeft = TIME_PER_ROUND;
+      lockAnswer = false;
+      startBtn.classList.add("hidden");
       renderQuestion();
     }
 
-    function renderQuestion() {
-      locked = false;
-      statusText.textContent = "Main";
-      currentTime = TIME_LIMIT;
-      updateHeader();
+    function startTimer() {
+      clearInterval(timer);
+      timeLeft = TIME_PER_ROUND;
+      timerText.textContent = timeLeft;
 
-      const current = questionsForGame[currentRound - 1];
+      timer = setInterval(() => {
+        timeLeft--;
+        timerText.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          handleLose("Waktu habis! Kembali ke Round 1.");
+        }
+      }, 1000);
+    }
+
+    function renderQuestion() {
+      lockAnswer = false;
+      updateHeader();
+      setStatus("Main");
+
+      const current = gameQuestions[currentRound];
       questionText.textContent = current.question;
       answersBox.innerHTML = "";
 
@@ -494,123 +599,69 @@
         const btn = document.createElement("button");
         btn.className = "answer-btn";
         btn.textContent = option;
-        btn.onclick = () => chooseAnswer(option);
+        btn.onclick = () => handleAnswer(option);
         answersBox.appendChild(btn);
       });
 
       startTimer();
     }
 
-    function startTimer() {
-      stopTimer();
-      timer = setInterval(() => {
-        currentTime--;
-        updateHeader();
-
-        if (currentTime <= 0) {
-          stopTimer();
-          timeOut();
-        }
-      }, 1000);
+    function disableAnswers() {
+      const buttons = answersBox.querySelectorAll("button");
+      buttons.forEach(btn => btn.disabled = true);
     }
 
-    function timeOut() {
-      if (locked) return;
-      locked = true;
+    function handleAnswer(selected) {
+      if (lockAnswer) return;
+      lockAnswer = true;
       disableAnswers();
-      statusText.textContent = "Gagal";
+      clearInterval(timer);
 
-      showModal(
-        "WAKTU HABIS",
-        `Kamu belum menjawab dalam 10 detik.<br><br>Game akan diulang dari <b>Round 1</b> dengan pertanyaan baru.`,
-        () => {
-          location.reload();
-        }
-      );
-    }
-
-    function wrongAnswer() {
-      statusText.textContent = "Salah";
-      showModal(
-        "JAWABAN SALAH",
-        `Jawaban kamu belum tepat.<br><br>Game akan diulang dari <b>Round 1</b> dengan pertanyaan baru.`,
-        () => {
-          location.reload();
-        }
-      );
-    }
-
-    function winGame() {
-      statusText.textContent = "Menang";
-      showModal("SELAMAT", WIN_MESSAGE, () => {
-        location.reload();
-      });
-    }
-
-    function chooseAnswer(selected) {
-      if (locked) return;
-      locked = true;
-      stopTimer();
-      disableAnswers();
-
-      const current = questionsForGame[currentRound - 1];
-
+      const current = gameQuestions[currentRound];
       if (selected === current.answer) {
-        statusText.textContent = "Benar";
-
-        if (currentRound === TOTAL_ROUNDS) {
-          setTimeout(() => {
-            winGame();
-          }, 250);
-        } else {
-          currentRound++;
-          setTimeout(() => {
-            renderQuestion();
-          }, 400);
+        if (currentRound === TOTAL_ROUNDS - 1) {
+          handleWin();
+          return;
         }
+
+        setStatus("Benar!", "good");
+        questionText.textContent = "Jawaban benar, lanjut ke round berikutnya...";
+        setTimeout(() => {
+          currentRound++;
+          renderQuestion();
+        }, 700);
       } else {
-        wrongAnswer();
+        handleLose("Jawaban salah! Kembali ke Round 1.");
       }
     }
 
-    // Anti inspect basic deterrent
-    function antiCheatPopup() {
-      showModal(
-        "PERINGATAN",
-        `JANGAN ANEH-ANEH MAEN AJA UDAH!<br><br>
-        This Product Created By
-        <a href="${CREATOR_LINK}" target="_blank">${CREATOR_LINK}</a>`,
-        () => {}
-      );
+    function handleLose(message) {
+      clearInterval(timer);
+      setStatus("Kalah", "bad");
+      questionText.textContent = message;
+      answersBox.innerHTML = "";
+      startBtn.classList.remove("hidden");
+      startBtn.textContent = "Coba Lagi (Soal Baru)";
+      currentRound = 0;
+      timeLeft = TIME_PER_ROUND;
+      updateHeader();
     }
 
-    document.addEventListener("contextmenu", function(e) {
-      e.preventDefault();
-      antiCheatPopup();
-    });
+    function handleWin() {
+      clearInterval(timer);
+      setStatus("Menang!", "good");
+      questionText.textContent = "Selamat! Kamu berhasil menyelesaikan semua 5 round.";
+      answersBox.innerHTML = "";
+      startBtn.classList.remove("hidden");
+      startBtn.textContent = "Main Lagi (Soal Baru)";
+      currentRound = 0;
+      timeLeft = TIME_PER_ROUND;
+      updateHeader();
+    }
 
-    document.addEventListener("keydown", function(e) {
-      const key = e.key.toLowerCase();
+    startBtn.addEventListener("click", startGame);
 
-      if (
-        key === "f12" ||
-        (e.ctrlKey && key === "u") ||
-        (e.ctrlKey && e.shiftKey && key === "i") ||
-        (e.ctrlKey && e.shiftKey && key === "j") ||
-        (e.ctrlKey && key === "s")
-      ) {
-        e.preventDefault();
-        antiCheatPopup();
-      }
-    });
-
-    // Refresh selalu mulai dari round 1 dan pertanyaan baru
-    window.addEventListener("beforeunload", function() {
-      stopTimer();
-    });
-
-    prepareQuestions();
-    renderQuestion();
+    resetToIdle();
   </script>
 </body>
 </html>
